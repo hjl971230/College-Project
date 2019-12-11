@@ -11,6 +11,6 @@ public:
 	Player();
 	void setm_strPlayerskin(string);
 	string getm_strPlayerskin();
-	void Move(int*, int*, int*, int*, bool*);
+	void Move(int*, int*, int*, int*, bool*, bool*);
 };
 

@@ -30,10 +30,10 @@ void UI::Menu(int &x, int &y, int* Width, int* Height)
 			GamePlay(x, y, Width, Height);
 			break;
 		case 2:
-			//option(x, y, Width, Height, true);
+			option(x, y, Width, Height);
 			break;
 		case 3:
-			//*Gmcheck = false;
+			exit(0);
 			return;
 		default:
 			break;
@@ -45,30 +45,65 @@ void UI::GamePlay(int &x, int &y, int* Width, int* Height)
 {
 	int s_ix = *Width;
 	int s_iy = *Height - 2;
+	bool esc = true;
 	system("cls");
 	BoxDraw(x, y, *Width, *Height);
 	TextDraw(m_Player.getm_strPlayerskin(), s_ix, s_iy);
 	while (1)
 	{
-
 		m_info.StarManager();
-
 		if (_kbhit())
 		{
-			m_Player.Move(&x, &y, Width, Height, &m_bfirsttime);
+			m_Player.Move(&x, &y, Width, Height, &m_bfirsttime, &esc);
+			m_info.getppos().p_iX = x;
+			m_info.getppos().p_iY = y;
 		}
-		
+		m_info.collidecheck();
+		if (esc == false)
+		{
+			x = 0, y = 0;
+			gotoxy(x, y);
+			break;
+		}
 	}
 }
-
-void UI::SkinChange(int x, int y, int* Width, int* Height)
+void UI::option(int& x, int& y, int* Width, int* Height)
+{
+	int Select;
+	while (1)
+	{
+		system("cls");
+		BoxDraw(x, y, *Width, *Height);
+		DrawMidText("= Option =", (x + *Width) - 1, 4);
+		DrawMidText("1.Player Custom", (x + *Width) - 1, 7);
+		DrawMidText("2.Star Custom", (x + *Width) - 1, 10);
+		DrawMidText("3.Return", (x + *Width) - 1, 13);
+		DrawMidText("ÀÔ·Â : ", (x + *Width) - 1, 16);
+		cin >> Select;
+		switch (Select)
+		{
+		case 1:
+			PlayerSkinChange(x, y, Width, Height);
+			break;
+		case 2:
+			StarSkinChange(x, y, Width, Height);
+			break;
+		case 3:
+			Maintitle();
+			return;
+		default:
+			break;
+		}
+	}
+}
+void UI::PlayerSkinChange(int x, int y, int* Width, int* Height)
 {
 	int Select;
 	BoxDraw(x, y, *Width, *Height);
 	DrawMidText("=Set Player Skin=", (x + *Width) - 1, ((*Height + 1) / 2)-6);
-	DrawMidText("1.¡Ü", (x + *Width) - 1, ((*Height + 1) / 2)-4);
+	DrawMidText("1.¿Ê", (x + *Width) - 1, ((*Height + 1) / 2)-4);
 	DrawMidText("2.¢¾", (x + *Width) - 1, ((*Height + 1) / 2)-2);
-	DrawMidText("3.¢Ï", (x + *Width) - 1, ((*Height + 1) / 2));
+	DrawMidText("3.¡Ü", (x + *Width) - 1, ((*Height + 1) / 2));
 	DrawMidText("4.¡ã", (x + *Width) - 1, ((*Height + 1) / 2)+2);
 	DrawMidText("5.Return", (x + *Width) - 1, ((*Height + 1) / 2)+4);
 	DrawMidText("ÀÔ·Â : ", (x + *Width) - 1, ((*Height + 1) / 2)+6);
@@ -76,16 +111,48 @@ void UI::SkinChange(int x, int y, int* Width, int* Height)
 	switch (Select)
 	{
 	case 1:
-		m_Player.setm_strPlayerskin("¡Ü");
+		m_Player.setm_strPlayerskin("¿Ê");
 		break;
 	case 2:
 		m_Player.setm_strPlayerskin("¢¾");
 		break;
 	case 3:
-		m_Player.setm_strPlayerskin("¢Ï");
+		m_Player.setm_strPlayerskin("¡Ü");
 		break;
 	case 4:
 		m_Player.setm_strPlayerskin("¡ã");
+		break;
+	case 5:
+		return;
+	default:
+		break;
+	}
+}
+void UI::StarSkinChange(int x, int y, int* Width, int* Height)
+{
+	int Select;
+	BoxDraw(x, y, *Width, *Height);
+	DrawMidText("=Set Player Skin=", (x + *Width) - 1, ((*Height + 1) / 2) - 6);
+	DrawMidText("1.¡Ü", (x + *Width) - 1, ((*Height + 1) / 2) - 4);
+	DrawMidText("2.¢¾", (x + *Width) - 1, ((*Height + 1) / 2) - 2);
+	DrawMidText("3.¢Ï", (x + *Width) - 1, ((*Height + 1) / 2));
+	DrawMidText("4.¡ã", (x + *Width) - 1, ((*Height + 1) / 2) + 2);
+	DrawMidText("5.Return", (x + *Width) - 1, ((*Height + 1) / 2) + 4);
+	DrawMidText("ÀÔ·Â : ", (x + *Width) - 1, ((*Height + 1) / 2) + 6);
+	cin >> Select;
+	switch (Select)
+	{
+	case 1:
+		m_info.setm_strstarskin("¡Ü");
+		break;
+	case 2:
+		m_info.setm_strstarskin("¢¾");
+		break;
+	case 3:
+		m_info.setm_strstarskin("¢Ï");
+		break;
+	case 4:
+		m_info.setm_strstarskin("¡ã");
 		break;
 	case 5:
 		return;

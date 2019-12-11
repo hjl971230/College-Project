@@ -15,6 +15,8 @@ public:
 	UI();
 	void Menu(int &x, int &y, int* Width, int* Height);
 	void Maintitle();
-	void SkinChange(int x, int y, int* Width, int* Height);
+	void PlayerSkinChange(int x, int y, int* Width, int* Height);
+	void StarSkinChange(int x, int y, int* Width, int* Height);
 	void GamePlay(int &x, int &y, int* Width, int* Height);
+	void option(int& x, int& y, int* Width, int* Height);
 };

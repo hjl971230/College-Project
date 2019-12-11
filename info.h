@@ -21,6 +21,7 @@ class info
 	int m_iY; //세로의 길이
 	int m_iSpeed; //별이 떨어지는 속도
 	int m_iscore;
+	string m_strstarskin;
 public:
 	info();
 	void setSpeed(int speed);
@@ -30,6 +31,9 @@ public:
 	void MakeStar(int& x, int& y);
 	void StarErase(int& x, int& y);
 	void StarManager();
+	void setm_strstarskin(string);
+	string getm_strstarskin();
+	void collidecheck();
 	~info();
 };
 

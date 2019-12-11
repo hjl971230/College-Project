@@ -10,9 +10,10 @@ info::info()
 		*(spos->s_iY + i) = 0;
 	}
 	m_iscore = 0;
-	m_iSpeed = 10;
+	m_iSpeed = 100;
 	m_iX = 20;
 	m_iY = 20;
+	m_strstarskin = "★";
 }
 void info::setSpeed(int speed)
 {
@@ -22,7 +23,7 @@ void info::StarFall(int& x, int& y) // x, y 는 별의 위치
 {
 	y++;
 	gotoxy(x, y);
-	cout << "★" << endl;
+	cout << m_strstarskin << endl;
 
 } //실행될 때마다 밑의 좌표로 이동
 void info::MakeStar(int& x, int& y)
@@ -71,12 +72,29 @@ void info::StarManager()
 				StarErase(spos->s_iX[j], spos->s_iY[j]);
 				gotoxy(0, 22);
 				cout << "점수 : " << m_iscore;
-				
 			}
 		}
-		Sleep(m_iSpeed);
+		
 	}
 	
+}
+void info::collidecheck()
+{
+	for (int i = 0; i < 20; i++)
+	{
+		if (*spos[i].s_iY == ppos.p_iY-1)
+		{
+			system("pause");
+		}
+	}
+}
+void info::setm_strstarskin(string str)
+{
+	m_strstarskin = str;
+}
+string info::getm_strstarskin()
+{
+	return m_strstarskin;
 }
 Playerpos& info::getppos()
 {

@@ -12,7 +12,7 @@ string Player::getm_strPlayerskin()
 {
 	return m_strPlayerskin;
 }
-void Player::Move(int* x, int* y, int* Width, int* Height, bool* ft)
+void Player::Move(int* x, int* y, int* Width, int* Height, bool* ft, bool* esc)
 {
 	int ch;
 	if (*ft) 
@@ -43,8 +43,8 @@ void Player::Move(int* x, int* y, int* Width, int* Height, bool* ft)
 
 	case _INTERFACE_ESC:
 		*ft = true;
-
-		return;
+		*esc = false;
+		break;
 	case _INTERFACE_OPTION:
 
 		return;
